@@ -62,6 +62,54 @@ const smallest = function (s, arr) {
   }
   return Math.min(...list);
 };
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
+
+// 159 Longest Substring with K Distinct Characters
+// similar to // 904. Fruit Into Baskets, in 904, k = 2
+
+// Given a string, find the length of the longest substring in it with no more than K distinct characters.
+
+// Input: String="araaci", K=2
+// Output: 4
+// Explanation: The longest substring with no more than '2' distinct characters is "araa".
+
+// Input: String="araaci", K=1
+// Output: 2
+// Explanation: The longest substring with no more than '1' distinct characters is "aa".
+
+// Input: String="cbbebi", K=3
+// Output: 5
+// Explanation: The longest substrings with no more than '3' distinct characters are "cbbeb" & "bbebi".
+
+const subString = function (str, k) {
+  let map = {},
+    start = 0,
+    max = 0;
+
+  for (let end = 0; end < str.length; end++) {
+    const rightChar = str[end];
+    if (!map[rightChar]) map[rightChar] = 0;
+    map[rightChar]++;
+
+    while (Object.keys(map).length > k) {
+      const leftChar = str[start];
+      map[leftChar]--;
+      if (map[leftChar] === 0) delete map[leftChar];
+      start++;
+    }
+    max = Math.max(max, end - start + 1);
+  }
+  return max;
+};
+
+console.log(subString("araaci", 2));
+console.log(subString("araaci", 1));
+console.log(subString("cbbebi", 3));
 
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////

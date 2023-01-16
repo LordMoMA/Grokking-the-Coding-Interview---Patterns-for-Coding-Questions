@@ -1,6 +1,7 @@
 "use strict";
 
 // 643. Maximum Average Subarray I
+// https://leetcode.com/problems/maximum-average-subarray-i/
 
 // Input: nums = [1,12,-5,-6,50,3], k = 4
 // Output: 12.75000
@@ -61,6 +62,76 @@ const smallest = function (s, arr) {
   }
   return Math.min(...list);
 };
+
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+
+// 3. Longest Substring Without Repeating Characters
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
+// Input: s = "abcabcbb"
+// Output: 3
+// Explanation: The answer is "abc", with the length of 3.
+
+const lengthOfLongestSubstring = function (s) {
+  let map = {};
+  let start = 0;
+  let max = 0;
+
+  for (let end = 0; end < s.length; end++) {
+    if (s[end] in map) start = Math.max(start, map[s[end]] + 1);
+    map[s[end]] = end;
+    max = Math.max(max, end - start + 1);
+  }
+  return max;
+};
+
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
+
+// 904. Fruit Into Baskets
+// https://leetcode.com/problems/fruit-into-baskets/
+
+// Input: fruits = [1,2,1]
+// Output: 3
+// Explanation: We can pick from all 3 trees.
+
+// Input: fruits = [0,1,2,2]
+// Output: 3
+// Explanation: We can pick from trees [1,2,2].
+// If we had started at the first tree, we would only pick from trees [0,1].
+
+// beware of the while loop and everything inside, esp length and [start]
+
+const totalFruit = function (fruits) {
+  let map = {},
+    start = 0,
+    max = 0;
+
+  for (let end = 0; end < fruits.length; end++) {
+    if (!map[fruits[end]]) map[fruits[end]] = 0;
+    map[fruits[end]]++;
+
+    while (Object.keys(map).length > 2) {
+      map[fruits[start]]--;
+      if (map[fruits[start]] === 0) delete map[fruits[start]];
+      start++;
+    }
+
+    max = Math.max(max, end - start + 1);
+  }
+  return max;
+};
+
+console.log(totalFruit(["A", "B", "C", "B", "B", "C"]));
 
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////

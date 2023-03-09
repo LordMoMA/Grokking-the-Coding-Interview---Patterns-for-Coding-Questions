@@ -105,7 +105,10 @@ class Solution(object):
 ################################################################
 ################################################################
 
+
 """
+257. Binary Tree Paths
+
 Problem 1: Given a binary tree, return all root-to-leaf paths.
 
 Solution: We can follow a similar approach. We just need to remove the “check for the path sum”.

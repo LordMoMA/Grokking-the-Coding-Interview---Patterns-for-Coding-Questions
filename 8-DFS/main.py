@@ -41,6 +41,9 @@ def hasPathSum(self, root, sum):
 
         return self.hasPathSum(root.left, sum) or self.hasPathSum(root.right, sum)  
 
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+
 ################################################################
 ################################################################
 ################################################################

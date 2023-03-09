@@ -143,7 +143,25 @@ class Solution(object):
             self.dfs(root.left, path + str(root.val) + "->", result)
         if root.right:
             self.dfs(root.right, path + str(root.val) + "->", result)
-        
+
+# solution2:
+
+class Solution(object):
+    def binaryTreePaths(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[str]
+        """
+        return self.dfs(root, "")
+    
+    def dfs(self, root, path):
+        if not root:
+            return []
+        path += str(root.val)
+        if not root.left and not root.right:
+            return [path]
+        path += "->"
+        return self.dfs(root.left, path) + self.dfs(root.right, path)
 ################################################################
 ################################################################
 ################################################################

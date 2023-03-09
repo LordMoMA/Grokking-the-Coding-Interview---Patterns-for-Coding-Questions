@@ -91,6 +91,7 @@ class Solution(object):
             return
         path.append(root.val)
         if root.val == sum and not root.left and not root.right:
+            #result.append(path[:])
             result.append(list(path))
         else: 
             self.dfs(root.left, path, sum - root.val, result) 

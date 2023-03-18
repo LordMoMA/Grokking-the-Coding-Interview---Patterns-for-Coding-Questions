@@ -179,3 +179,20 @@ Input: root = [-10,9,20,null,null,15,7]
 Output: 42
 Explanation: The optimal path is 15 -> 20 -> 7 with a path sum of 15 + 20 + 7 = 42.
 '''
+class Solution(object):
+    def maxPathSum(self, root):
+
+        res = float("-inf")
+        
+        def dfs(node):
+            if not node:
+                return 0
+            left = dfs(node.left)
+            right = dfs(node.right)
+            left = max(left, 0)
+            right = max(right, 0)
+            res = max(left + right + node.val, res)
+            return max(left, right) + node.val
+
+        dfs(root)
+        return res

@@ -178,6 +178,8 @@ Given the root of a binary tree, return the maximum path sum of any non-empty pa
 Input: root = [-10,9,20,null,null,15,7]
 Output: 42
 Explanation: The optimal path is 15 -> 20 -> 7 with a path sum of 15 + 20 + 7 = 42.
+
+https://leetcode.com/problems/binary-tree-maximum-path-sum/solutions/603423/python-recursion-stack-thinking-process-diagram/
 '''
 # Definition for a binary tree node.
 class TreeNode:
@@ -202,7 +204,3 @@ class Solution:
         
         dfs(root)
         return res
-# res is the value which recording whether this current root is the final root, 
-# so we use left + right + node.val. But to the upper layer(after return statement), 
-# we cannot choose both left and right brunches, so we need to select the larger one, 
-# so we use max(left, right) + node.val to prune the lower brunch.

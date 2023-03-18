@@ -202,3 +202,7 @@ class Solution:
         
         dfs(root)
         return res
+# res is the value which recording whether this current root is the final root, 
+# so we use left + right + node.val. But to the upper layer(after return statement), 
+# we cannot choose both left and right brunches, so we need to select the larger one, 
+# so we use max(left, right) + node.val to prune the lower brunch.

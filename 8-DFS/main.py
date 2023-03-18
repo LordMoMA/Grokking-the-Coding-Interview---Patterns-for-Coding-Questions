@@ -179,7 +179,9 @@ Input: root = [-10,9,20,null,null,15,7]
 Output: 42
 Explanation: The optimal path is 15 -> 20 -> 7 with a path sum of 15 + 20 + 7 = 42.
 
+Solution Explanation:
 https://leetcode.com/problems/binary-tree-maximum-path-sum/solutions/603423/python-recursion-stack-thinking-process-diagram/
+https://www.youtube.com/watch?v=Hr5cWUld4vU&t=761s
 '''
 # Definition for a binary tree node.
 class TreeNode:
@@ -204,3 +206,4 @@ class Solution:
         
         dfs(root)
         return res
+# time O(n) space O(height of the tree) or O(h) or O(logn) if it's a balanced binary tree

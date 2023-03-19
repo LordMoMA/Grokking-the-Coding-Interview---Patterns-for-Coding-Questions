@@ -5,17 +5,19 @@ class TreeNode:
         self.right = right
 
 def find_path(root, sequence):
-    num = ''.join(map(str, sequence))
+    
+    return dfs(root, sequence, 0)
 
-    return num == str(dfs(root, 0))
-
-def dfs(root, res):
+def dfs(root, sequence, i):
     if not root:
-        return 0
-    res = res * 10 + root.val
-    if not root.left and not root.right:
-        return res
-    return dfs(root.left, res) or dfs(root.right, res)
+        return False
+    length = len(sequence)
+    if i >= length or sequence[i] != root.val:
+        return False
+    if not root.left and not root.right and i == length - 1:
+        return True
+
+    return dfs(root.left, sequence, i+1) or dfs(root.right, sequence, i+1)
 
 def main():
     root = TreeNode(1)

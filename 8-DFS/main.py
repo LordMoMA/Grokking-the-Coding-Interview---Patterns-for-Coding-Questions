@@ -252,7 +252,11 @@ class Solution:
  Path With Given Sequence (medium)
  LeetCode Premiem: Check If a String Is a Valid Sequence from Root to Leaves Path in a Binary Tree
  https://medium.com/@yzhua3/leetcode-check-if-a-string-is-a-valid-sequence-from-root-to-leaves-path-in-a-binary-tree-cb3012f5820
-'''
+
+ Solution #
+This problem follows the Binary Tree Path Sum pattern. We can follow the same DFS approach and additionally, 
+track the element of the given sequence that we should match with the current node. Also, we can return false as soon as we find a mismatch between the sequence and the node value.
+ '''
 class TreeNode:
     def __init__(self, val, left=None, right=None):
         self.val = val
@@ -260,17 +264,19 @@ class TreeNode:
         self.right = right
 
 def find_path(root, sequence):
-    num = ''.join(map(str, sequence))
+    
+    return dfs(root, sequence, 0)
 
-    return num == str(dfs(root, 0))
-
-def dfs(root, res):
+def dfs(root, sequence, i):
     if not root:
-        return 0
-    res = res * 10 + root.val
-    if not root.left and not root.right:
-        return res
-    return dfs(root.left) or dfs(root.right)
+        return False
+    length = len(sequence)
+    if i >= length or sequence[i] != root.val:
+        return False
+    if not root.left and not root.right and i == length - 1:
+        return True
+
+    return dfs(root.left, sequence, i+1) or dfs(root.right, sequence, i+1)
 
 def main():
     root = TreeNode(1)
@@ -283,3 +289,4 @@ def main():
     print("Tree has path sequence: " + str(find_path(root, [1, 1, 6])))
 
 main()
+# Time, Space O(n) The worst case will happen when the given tree is a linked list (i.e., every node has only one child).

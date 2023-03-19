@@ -253,3 +253,22 @@ class Solution:
  LeetCode Premiem: Check If a String Is a Valid Sequence from Root to Leaves Path in a Binary Tree
  https://medium.com/@yzhua3/leetcode-check-if-a-string-is-a-valid-sequence-from-root-to-leaves-path-in-a-binary-tree-cb3012f5820
 '''
+class TreeNode:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def find_path(root, sequence):
+    num = ''.join(map(str, sequence))
+
+    return num == str(dfs(root, 0))
+
+def dfs(root, res):
+    if not root:
+        return 0
+    res = res * 10 + root.val
+    if not root.left and not root.right:
+        return res
+    return dfs(root.left) or dfs(root.right)
+

@@ -327,3 +327,4 @@ class Solution:
         count += self.dfs(root.right, targetSum, path)
         path.pop()
         return count
+# time: O(N ^ 2) or O(N log N) if balanced tree; Space: O(N)

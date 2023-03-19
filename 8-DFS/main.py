@@ -247,3 +247,9 @@ class Solution:
             return path_sum
         return self.dfs(node.left, path_sum) + self.dfs(node.right, path_sum)
 # Time, Space: O(n)
+
+'''
+ Path With Given Sequence (medium)
+ LeetCode Premiem: Check If a String Is a Valid Sequence from Root to Leaves Path in a Binary Tree
+ https://medium.com/@yzhua3/leetcode-check-if-a-string-is-a-valid-sequence-from-root-to-leaves-path-in-a-binary-tree-cb3012f5820
+'''

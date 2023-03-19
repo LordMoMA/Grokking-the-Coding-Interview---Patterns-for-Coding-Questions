@@ -272,3 +272,14 @@ def dfs(root, res):
         return res
     return dfs(root.left) or dfs(root.right)
 
+def main():
+    root = TreeNode(1)
+    root.left = TreeNode(0)
+    root.right = TreeNode(1)
+    root.left.left = TreeNode(6)
+    root.right.right = TreeNode(6)
+
+    print("Tree has path sequence: " + str(find_path(root, [1, 0, 7])))
+    print("Tree has path sequence: " + str(find_path(root, [1, 1, 6])))
+
+main()

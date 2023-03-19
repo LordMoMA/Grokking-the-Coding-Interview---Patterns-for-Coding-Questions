@@ -304,3 +304,26 @@ Input: root = [10,5,-3,3,2,null,11,3,-2,null,1], targetSum = 8
 Output: 3
 Explanation: The paths that sum to 8 are shown.
 '''
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        return self.dfs(root, targetSum, [])
+    
+    def dfs(self, root, targetSum, path):
+        if not root:
+            return 0
+        path.append(root.val)
+        count, pathSum = 0, 0
+        for i in range(len(path) - 1, -1, -1):
+            pathSum += path[i]
+            if pathSum == targetSum:
+                count += 1
+        count += self.dfs(root.left, targetSum, path)
+        count += self.dfs(root.right, targetSum, path)
+        path.pop()
+        return count

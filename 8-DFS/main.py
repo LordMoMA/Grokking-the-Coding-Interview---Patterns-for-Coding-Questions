@@ -351,17 +351,16 @@ Explanation: 3 is the length of the path [4,2,1,3] or [5,2,1,3].
 #         self.left = left
 #         self.right = right
 class Solution:
-    def __init__(self):
-        self.count = 0
-
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        self.dfs(root)
+        self.count = 0
+        
+        def dfs(root):
+            if not root:
+                return 0
+            left = dfs(root.left)
+            right = dfs(root.right)
+            self.count = max(self.count, left + right)
+            return max(left, right) + 1
+
+        dfs(root)
         return self.count
-       
-    def dfs(self, root):
-        if not root:
-            return 0
-        left = self.dfs(root.left)
-        right = self.dfs(root.right)
-        self.count = max(self.count, left + right + 1)
-        return max(left, right) + 1

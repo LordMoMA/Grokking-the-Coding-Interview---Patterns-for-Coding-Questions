@@ -1,6 +1,8 @@
 # Grokking-the-Coding-Interview---Patterns-for-Coding-Questions
 
-This repo contains LeetCode pattern solutions by JavaScript and Golang with explanation
+This repo contains LeetCode pattern solutions by JavaScript, Python and Golang with explanation.
+
+If you need the test the JavaScript version:
 
 1. :bowtie: Go to each folder and locate the script.js file, copy each snippet code by each LeetCode question
 2. :trollface: Paste the code in the script.js file under the main directory

@@ -414,3 +414,18 @@ Output: 16   Explanation: The path with maximum sum is: [4, 2, 1, 3, 6]
 Output: 31   Explanation: The path with maximum sum is: [8, 5, 3, 6, 9]
 
 '''
+
+def maxPathSum(root):
+    sum = -math.inf
+    def dfs(root):
+        if not root:
+            return 0
+        left = dfs(root.left)
+        right = dfs(root.right)
+        leftSum = max(left, 0)
+        rightSum = max(right, 0)
+        sum = max(sum, left + right)
+        return max(left, right) + root.val
+    dfs(root)
+    return sum
+

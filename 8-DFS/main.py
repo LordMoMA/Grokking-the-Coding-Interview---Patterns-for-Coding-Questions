@@ -408,6 +408,8 @@ class Solution:
 '''
 124. Binary Tree Maximum Path Sum
 
+same with 543. Diameter of Binary Tree
+
 A path can be defined as a sequence of nodes between any two nodes and doesn’t necessarily pass through the root.
 
 Output: 16   Explanation: The path with maximum sum is: [4, 2, 1, 3, 6]
@@ -416,7 +418,7 @@ Output: 31   Explanation: The path with maximum sum is: [8, 5, 3, 6, 9]
 '''
 
 def maxPathSum(root):
-    sum = -math.inf
+    sum = float("-inf")
     def dfs(root):
         if not root:
             return 0
@@ -424,8 +426,16 @@ def maxPathSum(root):
         right = dfs(root.right)
         leftSum = max(left, 0)
         rightSum = max(right, 0)
-        sum = max(sum, left + right)
-        return max(left, right) + root.val
+        localSum = leftSum + rightSum + root.val
+        sum = max(sum, localSum)
+        return max(leftSum, rightSum) + root.val
     dfs(root)
     return sum
+# time, space O(n)
+
+########################################################################
+########################################################################
+#########################Extended Questions#############################
+########################################################################
+########################################################################
 

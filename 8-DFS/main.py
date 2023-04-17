@@ -404,3 +404,13 @@ class Solution:
             return [path]
         path += '->'
         return self.dfs(root.left, path) + self.dfs(root.right, path)
+
+'''
+124. Binary Tree Maximum Path Sum
+
+A path can be defined as a sequence of nodes between any two nodes and doesn’t necessarily pass through the root.
+
+Output: 16   Explanation: The path with maximum sum is: [4, 2, 1, 3, 6]
+Output: 31   Explanation: The path with maximum sum is: [8, 5, 3, 6, 9]
+
+'''

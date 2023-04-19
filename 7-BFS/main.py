@@ -90,3 +90,39 @@ Given the root of a binary tree, return the zigzag level order traversal of its 
 Input: root = [3,9,20,null,null,15,7]
 Output: [[3],[20,9],[15,7]]
 '''
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+class Solution:
+    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        res = []
+        if not root:
+            return res
+        leftToRight = True
+        queue = deque()
+        queue.append(root)
+
+        while queue:
+            curLevel = deque()
+            levelSize = len(queue)
+            for _ in range(levelSize):
+                cur = queue.popleft()
+
+                if leftToRight:
+                    curLevel.append(cur.val)
+                else:
+                    curLevel.appendleft(cur.val)
+
+                if cur.left:
+                    queue.append(cur.left)
+                if cur.right:
+                    queue.append(cur.right)
+            res.append(list(curLevel))
+            leftToRight = not leftToRight
+        return res
+# time, space O(n)

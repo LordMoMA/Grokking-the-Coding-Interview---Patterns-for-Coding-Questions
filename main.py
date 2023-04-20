@@ -1,33 +1,26 @@
-class TreeNode:
-    def __init__(self, val, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+def firstMissingPositive(nums):
+    n = len(nums)
 
-    def maxPathSum(root):
-        sum = float("-inf")
-        def dfs(root):
-            if not root:
-                return 0
-            left = dfs(root.left)
-            right = dfs(root.right)
-            leftSum = max(left, 0)
-            rightSum = max(right, 0)
-            localSum = leftSum + rightSum + root.val
-            sum = max(sum, localSum)
-            return max(leftSum, rightSum) + root.val
-        dfs(root)
-        return sum
+    # Step 1: Replace negative and zero elements with n+1
+    for i in range(n):
+        if nums[i] <= 0:
+            nums[i] = n+1
 
-def main():
-    root = TreeNode(1)
-    root.left = TreeNode(2)
-    root.right = TreeNode(3)
-    # root.left.left = TreeNode(6)
-    # root.right.right = TreeNode(6)
+    # Step 2: Mark the presence of positive integers
+    for i in range(n):
+        idx = abs(nums[i])
+        if idx <= n:
+            nums[idx-1] = -abs(nums[idx-1])
 
-    print("max sum: " + str(maxPathSum(root)))
-    # print("max sum: " + str(find_path(root, [1, 1, 6])))
+    # Step 3: Find the first missing positive integer
+    for i in range(n):
+        if nums[i] > 0:
+            return i+1
 
-main()
+    return n+1
 
+
+nums1 = [1, 2, 0]
+nums2 = [7, 8, 9, 11, 12]
+print(firstMissingPositive(nums1))
+print(firstMissingPositive(nums2))

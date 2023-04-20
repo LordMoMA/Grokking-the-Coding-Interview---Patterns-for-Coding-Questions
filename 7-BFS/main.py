@@ -198,3 +198,41 @@ class Solution:
             res.append(levelAverage)
         return res
 # time, space O(n)
+
+
+'''
+515. Find Largest Value in Each Tree Row
+https://leetcode.com/problems/find-largest-value-in-each-tree-row/description/
+
+Given the root of a binary tree, return an array of the largest value in each row of the tree (0-indexed).
+
+Input: root = [1,3,2,5,3,null,9]
+Output: [1,3,9]
+
+'''
+
+
+class Solution:
+    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+        if not root:
+            return res
+
+        queue = deque()
+        queue.append(root)
+
+        while queue:
+            levelMax = float("-inf")
+            levelSize = len(queue)
+            for _ in range(levelSize):
+                cur = queue.popleft()
+                if cur.left:
+                    queue.append(cur.left)
+                if cur.right:
+                    queue.append(cur.right)
+                # levelMax should be updated after the left and right child are appended to the queue
+                levelMax = max(levelMax, cur.val)
+            res.append(levelMax)
+
+        return res
+# time, space O(n)

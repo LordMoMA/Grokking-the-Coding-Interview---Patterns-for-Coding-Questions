@@ -83,7 +83,7 @@ def caculate_total_balance(accounts_data):
 
 
 accounts_data = [
-    'piglei 96.5',
+    'david 98.5',
     'cotton 21',
     'invalid_data',
     'roland $invalid_balance',

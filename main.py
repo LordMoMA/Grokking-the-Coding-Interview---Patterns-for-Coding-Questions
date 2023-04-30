@@ -2,14 +2,12 @@ import decimal
 
 
 class Account:
-    # def __init__ 已省略... ...
+    def __init__(self, username, balance):
+        self.username = username
+        self.balance = balance
 
     @classmethod
     def from_string(cls, s):
-        """从字符串初始化一个账号
-
-        :returns: 如果输入合法，返回 Account object，否则返回 NullAccount
-        """
         try:
             username, balance = s.split()
             balance = decimal.Decimal(float(balance))
@@ -28,3 +26,19 @@ class NullAccount:
     @classmethod
     def from_string(cls, s):
         raise NotImplementedError
+
+
+accounts_data = [
+    'david 98.5',
+    'cotton 21',
+    'invalid_data',
+    'roland $invalid_balance',
+    'alfred -3',
+]
+
+
+def caculate_total_balance(accounts_data):
+    return sum(Account.from_string(s).balance for s in accounts_data)
+
+
+print(caculate_total_balance(accounts_data))

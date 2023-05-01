@@ -1,44 +1,32 @@
-import decimal
+# -*- coding: utf-8 -*-
+import requests
+import re
 
 
-class Account:
-    def __init__(self, username, balance):
-        self.username = username
-        self.balance = balance
+def save_website_title(url, filename):
+    """获取某个地址的网页标题，然后将其写入到文件中
 
-    @classmethod
-    def from_string(cls, s):
-        try:
-            username, balance = s.split()
-            balance = decimal.Decimal(float(balance))
-        except ValueError:
-            return NullAccount()
+    :returns: 如果成功保存，返回 True，否则打印错误，返回 False
+    """
+    try:
+        resp = requests.get(url)
+        obj = re.search(r'<title>(.*)</title>', resp.text)
+        if not obj:
+            print('save failed: title tag not found in page content')
+            return False
 
-        if balance < 0:
-            return NullAccount()
-        return cls(username=username, balance=balance)
-
-
-class NullAccount:
-    username = ''
-    balance = 0
-
-    @classmethod
-    def from_string(cls, s):
-        raise NotImplementedError
+        title = obj.grop(1)
+        with open(filename, 'w') as fp:
+            fp.write(title)
+            return True
+    except Exception:
+        print(f'save failed: unable to save title of {url} to {filename}')
+        return False
 
 
-accounts_data = [
-    'david 98.5',
-    'helen 21',
-    'invalid_data',
-    'steve $invalid_balance',
-    'elon -3',
-]
+def main():
+    save_website_title('https://www.qq.com', 'qq_title.txt')
 
 
-def caculate_total_balance(accounts_data):
-    return sum(Account.from_string(s).balance for s in accounts_data)
-
-
-print(caculate_total_balance(accounts_data))
+if __name__ == '__main__':
+    main()

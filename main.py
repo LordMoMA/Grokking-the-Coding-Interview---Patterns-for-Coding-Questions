@@ -1,11 +1,6 @@
-class MyContextManager:
-    def __enter__(self):
-        print("Entering context")
-        return self
+fruits = ['apple', 'banana', 'cherry']
 
-    def __exit__(self, exc_type, exc_value, traceback):
-        print("Exiting context")
-
-
-with MyContextManager() as manager:
-    print("Inside context")
+index = 0
+for fruit in fruits:
+    print(f"The fruit at index {index} is {fruit}")
+    index += 1

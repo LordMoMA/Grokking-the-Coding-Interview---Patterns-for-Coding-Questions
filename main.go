@@ -27,12 +27,12 @@ func NewPaymentService() *PaymentService {
 func (p *PaymentService) ProcessPayment(payment Payment) error {
 	// check if the payment has already been processed
 	p.idempMu.Lock()
+	defer p.idempMu.Unlock()
+	
 	if p.idempotency[payment.orderID] {
-		p.idempMu.Unlock()
 		return nil
 	}
 	p.idempotency[payment.orderID] = true
-	p.idempMu.Unlock()
 
 	// process the payment
 	p.mu.Lock()

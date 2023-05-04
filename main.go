@@ -1,35 +1,64 @@
 package main
 
-import "log"
+import (
+	"fmt"
+	"sync"
+)
 
-type Animal interface {
-	// The method set of an interface type is its interface
-	Walk()
+type Payment struct {
+	orderID string
+	amount  float64
 }
 
-type Cat struct {
-	name string
+type PaymentService struct {
+	payments    map[string]float64
+	mu          sync.Mutex
+	idempotency map[string]bool
+	idempMu     sync.Mutex
 }
 
-// A method of type T
-func (c Cat) Walk() {
-	log.Println("Animal name:", c.name)
+func NewPaymentService() *PaymentService {
+	return &PaymentService{
+		payments:    make(map[string]float64),
+		idempotency: make(map[string]bool),
+	}
 }
 
-// A method of type *T
-func (c *Cat) changeName(newName string) {
-	c.name = newName
+func (p *PaymentService) ProcessPayment(payment Payment) error {
+	// check if the payment has already been processed
+	p.idempMu.Lock()
+	if p.idempotency[payment.orderID] {
+		p.idempMu.Unlock()
+		return nil
+	}
+	p.idempotency[payment.orderID] = true
+	p.idempMu.Unlock()
+
+	// process the payment
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if _, ok := p.payments[payment.orderID]; ok {
+		return fmt.Errorf("payment with order ID %s already exists", payment.orderID)
+	}
+	p.payments[payment.orderID] = payment.amount
+	fmt.Printf("Payment processed successfully: %v\n", payment)
+	return nil
 }
 
 func main() {
-	c1 := &Cat{name: "Tom"} // Pointer type
-	c2 := Cat{name: "Katie"}
+	paymentSvc := NewPaymentService()
 
-	// c1 with pointer receiver : Has all methods attached to both *Car(pointer) and Cat(Non-pointer)
-	c1.changeName("Tommy")
-	// C1 has access to Walk() method although Walk() method expect a pointer receiver
-	c1.Walk()
-	// c2 non-pointer receiver: // c2 with value receiver : Has all methods attached to Cat(Non-pointer)
-	c2.changeName("Kate")
-	c2.Walk()
+	// make a payment
+	payment := Payment{
+		orderID: "12345",
+		amount:  50.0,
+	}
+	if err := paymentSvc.ProcessPayment(payment); err != nil {
+		fmt.Printf("Error processing payment: %v\n", err)
+	}
+
+	// try to make the same payment again
+	if err := paymentSvc.ProcessPayment(payment); err != nil {
+		fmt.Printf("Error processing payment: %v\n", err)
+	}
 }

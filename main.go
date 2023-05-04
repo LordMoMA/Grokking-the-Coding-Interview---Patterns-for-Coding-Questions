@@ -1,64 +1,43 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"sync"
+	"io/ioutil"
+	"net/http"
 )
 
-type Payment struct {
-	orderID string
-	amount  float64
-}
+func handleWebhook(w http.ResponseWriter, r *http.Request) {
+    // Parse the incoming webhook payload
+    body, err := ioutil.ReadAll(r.Body)
+    if err != nil {
+        http.Error(w, "Failed to read request body", http.StatusBadRequest)
+        return
+    }
+    defer r.Body.Close()
 
-type PaymentService struct {
-	payments    map[string]float64
-	mu          sync.Mutex
-	idempotency map[string]bool
-	idempMu     sync.Mutex
-}
+    var payment Payment
+    if err := json.Unmarshal(body, &payment); err != nil {
+        http.Error(w, "Failed to parse request body", http.StatusBadRequest)
+        return
+    }
 
-func NewPaymentService() *PaymentService {
-	return &PaymentService{
-		payments:    make(map[string]float64),
-		idempotency: make(map[string]bool),
-	}
-}
+    // Handle the payment event
+    switch payment.Status {
+    case PaymentStatusSuccess:
+        // Update your database or trigger business workflows
+        fmt.Println("Payment successful:", payment.ID)
+    case PaymentStatusRefund:
+        // Handle refund event
+        fmt.Println("Payment refunded:", payment.ID)
+    // Handle other payment statuses here...
+    }
 
-func (p *PaymentService) ProcessPayment(payment Payment) error {
-	// check if the payment has already been processed
-	p.idempMu.Lock()
-	defer p.idempMu.Unlock()
-	
-	if p.idempotency[payment.orderID] {
-		return nil
-	}
-	p.idempotency[payment.orderID] = true
-
-	// process the payment
-	p.mu.Lock()
-	defer p.mu.Unlock()
-	if _, ok := p.payments[payment.orderID]; ok {
-		return fmt.Errorf("payment with order ID %s already exists", payment.orderID)
-	}
-	p.payments[payment.orderID] = payment.amount
-	fmt.Printf("Payment processed successfully: %v\n", payment)
-	return nil
+    // Return a response to the webhook provider
+    w.WriteHeader(http.StatusOK)
 }
 
 func main() {
-	paymentSvc := NewPaymentService()
-
-	// make a payment
-	payment := Payment{
-		orderID: "12345",
-		amount:  50.0,
-	}
-	if err := paymentSvc.ProcessPayment(payment); err != nil {
-		fmt.Printf("Error processing payment: %v\n", err)
-	}
-
-	// try to make the same payment again
-	if err := paymentSvc.ProcessPayment(payment); err != nil {
-		fmt.Printf("Error processing payment: %v\n", err)
-	}
+    http.HandleFunc("/webhook", handleWebhook)
+    http.ListenAndServe(":8080", nil)
 }

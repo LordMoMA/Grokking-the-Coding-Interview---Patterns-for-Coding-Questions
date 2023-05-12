@@ -16,8 +16,6 @@ users_visited_nz = [
 
 
 class VisitRecord:
-    """旅游记录
-    """
 
     def __init__(self, first_name, last_name, phone_number, date_visited):
         self.first_name = first_name
@@ -33,7 +31,6 @@ def __hash__(self):
 
 
 def __eq__(self, other):
-    # 当两条访问记录的名字与电话号相等时，判定二者相等。
     if isinstance(other, VisitRecord) and hash(other) == hash(self):
         return True
     return False

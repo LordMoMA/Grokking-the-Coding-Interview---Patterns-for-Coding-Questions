@@ -1,4 +1,5 @@
 import wrapt
+import random
 
 
 def provide_number(min_num, max_num):
@@ -20,6 +21,12 @@ def provide_number(min_num, max_num):
         args = (num,) + args
         return wrapped(*args, **kwargs)
     return wrapper
+
+
+class Foo:
+    @provide_number(1, 100)
+    def print_random_number(self, num):
+        print(num)
 
 
 # OUTPUT: 48

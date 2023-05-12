@@ -37,3 +37,8 @@ def __eq__(self, other):
     if isinstance(other, VisitRecord) and hash(other) == hash(self):
         return True
     return False
+
+
+def find_potential_customers_v3():
+    return set(VisitRecord(**r) for r in users_visited_phuket) - \
+        set(VisitRecord(**r) for r in users_visited_nz)

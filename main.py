@@ -1,22 +1,23 @@
-import functools
+# A Python program to generate squares from 1
+# to 100 using yield and therefore generator
+
+# An infinite generator function that prints
+# next square number. It starts with 1
 
 
-def counter(func):
-    """装饰器：记录并打印调用次数"""
-    count = 0
+def nextSquare():
+    i = 1
 
-    @functools.wraps(func)
-    def decorated(*args, **kwargs):
-        nonlocal count
-        count += 1
-        print(f"Count: {count}")
-        return func(*args, **kwargs)
-    return decorated
+    # An Infinite loop to generate squares
+    while True:
+        yield i*i
+        i += 1  # Next execution resumes
+        # from this point
 
 
-@counter
-def foo():
-    pass
-
-
-foo()
+# Driver code to test above generator
+# function
+for num in nextSquare():
+    if num > 100:
+        break
+    print(num)

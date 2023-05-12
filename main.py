@@ -1,36 +1,23 @@
-import time
-import functools
+import random
 
 
-class DelayFunc:
-    def __init__(self,  duration, func):
-        self.duration = duration
-        self.func = func
-
-    def __call__(self, *args, **kwargs):
-        print(f'Wait for {self.duration} seconds...')
-        time.sleep(self.duration)
-        return self.func(*args, **kwargs)
-
-    def eager_call(self, *args, **kwargs):
-        print('Call without delay')
-        return self.func(*args, **kwargs)
-
-
-def delay(duration):
-    """装饰器：推迟某个函数的执行。同时提供 .eager_call 方法立即执行
+def provide_number(min_num, max_num):
+    """装饰器：随机生成一个在 [min_num, max_num] 范围的整数，追加为函数的第一个位置参数
     """
-    # 此处为了避免定义额外函数，直接使用 functools.partial 帮助构造
-    # DelayFunc 实例
-    return functools.partial(DelayFunc, duration)
+    def wrapper(func):
+        def decorated(*args, **kwargs):
+            num = random.randint(min_num, max_num)
+            # 将 num 作为第一个参数追加后调用函数
+            return func(num, *args, **kwargs)
+        return decorated
+    return wrapper
 
 
-@delay(duration=2)
-def add(a, b):
-    return a + b
+@provide_number(1, 100)
+def print_random_number(num):
+    print(num)
 
 
-# 这次调用将会延迟 2 秒
-add(1, 2)
-# 这次调用将会立即执行
-add.eager_call(1, 2)
+# 输出 1-100 的随机整数
+# OUTPUT: 72
+print_random_number()

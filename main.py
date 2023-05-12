@@ -1,6 +1,6 @@
 from itertools import takewhile
 
-numbers = [2, 4, 5, 6, 7, 8, 9, 10]
+numbers = [2, 3, 4, 8, 9, 10]
 
 
 def is_even(num):

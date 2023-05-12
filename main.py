@@ -1,13 +1,12 @@
-from itertools import takewhile
-
-numbers = [2, 3, 4, 8, 9, 10]
-
-
-def is_even(num):
-    return num % 2 == 0
+class Foo:
+    def __call__(self):
+        print("Hello, __call___")
 
 
-even_numbers = takewhile(is_even, numbers)
+foo = Foo()
 
-for num in even_numbers:
-    print(num)
+# OUTPUT: True
+print(callable(foo))
+# 调用 foo 实例
+# OUTPUT: Hello, __call__
+foo()

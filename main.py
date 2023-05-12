@@ -1,9 +1,11 @@
 import time
 import random
+import functools
 
 
 def timer(wrapped):
-    """装饰器：记录并打印函数耗时"""
+    # 将 wrapper 函数的真实签名赋值到 decorated 上
+    @functools.wraps(wrapped)
     def decorated(*args, **kwargs):
         st = time.time()
         ret = wrapped(*args, **kwargs)

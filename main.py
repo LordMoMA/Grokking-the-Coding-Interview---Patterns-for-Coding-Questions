@@ -1,26 +1,22 @@
-import time
-import random
 import functools
 
 
-def timer(wrapped):
-    # 将 wrapper 函数的真实签名赋值到 decorated 上
-    @functools.wraps(wrapped)
+def counter(func):
+    """装饰器：记录并打印调用次数"""
+    count = 0
+
+    @functools.wraps(func)
     def decorated(*args, **kwargs):
-        st = time.time()
-        ret = wrapped(*args, **kwargs)
-        print('execution take: {} seconds'.format(time.time() - st))
-        return ret
+        nonlocal count
+        count += 1
+        print(f"Count: {count}")
+        return func(*args, **kwargs)
     return decorated
 
 
-@timer
-def random_sleep():
-    """随机睡眠一小会"""
-    time.sleep(random.random())
+@counter
+def foo():
+    pass
 
 
-print(random_sleep.__name__)
-# 输出 'decorated'
-print(random_sleep.__doc__)
-# 输出 None
+foo()

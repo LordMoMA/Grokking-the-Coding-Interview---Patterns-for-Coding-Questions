@@ -28,6 +28,7 @@ medianFinder.addNum(3);    // arr[1, 2, 3]
 medianFinder.findMedian(); // return 2.0
 
 '''
+from heapq import heappush, heappop
 
 
 class MedianFinder:
@@ -46,3 +47,4 @@ class MedianFinder:
         if len(self.minHeap) == len(self.maxHeap):
             return (self.minHeap[0] - self.maxHeap[0]) / 2
         return self.minHeap[0]
+# time complexity: O(logn), space complexity: O(n)

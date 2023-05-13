@@ -30,6 +30,9 @@ medianFinder.findMedian(); // return 2.0
 '''
 from heapq import heappush, heappop
 
+# make minHeap one number more than maxHeap
+# minHeap stores the larger half of the numbers
+
 
 class MedianFinder:
 

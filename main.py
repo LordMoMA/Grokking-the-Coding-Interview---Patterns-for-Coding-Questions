@@ -23,17 +23,15 @@ class VisitRecord:
         self.phone_number = phone_number
         self.date_visited = date_visited
 
+    def __hash__(self):
+        return hash(
+            (self.first_name, self.last_name, self.phone_number)
+        )
 
-def __hash__(self):
-    return hash(
-        (self.first_name, self.last_name, self.phone_number)
-    )
-
-
-def __eq__(self, other):
-    if isinstance(other, VisitRecord) and hash(other) == hash(self):
-        return True
-    return False
+    def __eq__(self, other):
+        if isinstance(other, VisitRecord) and hash(other) == hash(self):
+            return True
+        return False
 
 
 def find_potential_customers_v3():

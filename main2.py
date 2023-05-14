@@ -7,6 +7,9 @@ li = [5, 7, 9, 1, 3]
 # using heapify to convert list into heap
 heapq.heapify(li)
 
+print(li)
+print(li[0])
+
 # # printing created heap
 # print("The created heap is : ", end="")
 # print(list(li))

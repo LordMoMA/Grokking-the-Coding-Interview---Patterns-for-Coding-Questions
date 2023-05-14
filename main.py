@@ -1,3 +1,5 @@
+from dataclasses import dataclass, field
+
 # 去过普吉岛的人员数据
 users_visited_phuket = [
     {"first_name": "Sirena", "last_name": "Gross",
@@ -39,4 +41,18 @@ def find_potential_customers_v3():
         set(VisitRecord(**r) for r in users_visited_nz)
 
 
-print(find_potential_customers_v3())
+@dataclass(unsafe_hash=True)
+class VisitRecordDC:
+    first_name: str
+    last_name: str
+    phone_number: str
+    # 跳过“访问时间”字段，不作为任何对比条件
+    date_visited: str = field(hash=False, compare=False)
+
+
+def find_potential_customers_v4():
+    return set(VisitRecordDC(**r) for r in users_visited_phuket) - \
+        set(VisitRecordDC(**r) for r in users_visited_nz)
+
+
+print(find_potential_customers_v4())

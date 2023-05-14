@@ -1,12 +1,22 @@
 # Python program to demonstrate
-# dictionary
+# defaultdict
 
 
-Dict = {1: 'Geeks', 2: 'For', 3: 'Geeks'}
-print("Dictionary:")
-print(Dict)
-print(Dict[1])
+from collections import defaultdict
 
-# Uncommenting this print(Dict[4])
-# will raise a KeyError as the
-# 4 is not present in the dictionary
+
+# Defining the dict
+d = defaultdict(int)
+
+L = [1, 2, 3, 4, 2, 4, 1, 2]
+
+# Iterate through the list
+# for keeping the count
+for i in L:
+
+    # The default value is 0
+    # so there is no need to
+    # enter the key first
+    d[i] += 1
+
+print(d)

@@ -78,6 +78,8 @@ Window position                Median
  1  3  -1  -3  5 [3  6  7]       6
 '''
 
+# not working solution
+
 
 class Solution:
     def __init__(self):
@@ -115,5 +117,7 @@ class Solution:
         if len(self.minHeap) > len(self.maxHeap):
             heappush(self.maxHeap, -heappop(self.minHeap))
 
+# time complexity O(n * k) Space O(n)
 
-print(Solution.medianSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7], 3))
+# AttributeError: 'list' object has no attribute '_siftup'
+#     heap._siftup(heap, idn)

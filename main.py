@@ -37,3 +37,6 @@ class VisitRecord:
 def find_potential_customers_v3():
     return set(VisitRecord(**r) for r in users_visited_phuket) - \
         set(VisitRecord(**r) for r in users_visited_nz)
+
+
+print(find_potential_customers_v3())

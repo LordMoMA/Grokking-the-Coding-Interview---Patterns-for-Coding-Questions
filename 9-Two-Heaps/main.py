@@ -114,3 +114,6 @@ class Solution:
         heappush(self.minHeap, -heappop(self.maxHeap))
         if len(self.minHeap) > len(self.maxHeap):
             heappush(self.maxHeap, -heappop(self.minHeap))
+
+
+print(Solution.medianSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7], 3))

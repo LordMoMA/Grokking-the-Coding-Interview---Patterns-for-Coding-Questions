@@ -1,4 +1,4 @@
-package main
+package code
 
 // 643. Maximum Average Subarray I
 func findMaxAverage(nums []int, k int) float64 {

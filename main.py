@@ -35,6 +35,9 @@ class VisitRecord:
             return True
         return False
 
+    def __repr__(self):
+        return f"VisitRecord(first_name={self.first_name}, last_name={self.last_name}, phone_number={self.phone_number}, date_visited={self.date_visited})"
+
 
 def find_potential_customers_v3():
     return set(VisitRecord(**r) for r in users_visited_phuket) - \
@@ -55,4 +58,4 @@ def find_potential_customers_v4():
         set(VisitRecordDC(**r) for r in users_visited_nz)
 
 
-print(find_potential_customers_v4())
+print(find_potential_customers_v3())

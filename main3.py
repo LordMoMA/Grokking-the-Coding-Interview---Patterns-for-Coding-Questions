@@ -20,6 +20,6 @@ events = Events([
     'os stopped',
 ])
 
-# 判断是否有内容，打印第二个和第三个对象
+# 判断是否有内容，打印第二个和第三个
 if events:
     print(events[1:3])

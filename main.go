@@ -1,6 +1,9 @@
 package main
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 func main(){
 	// This works fine
@@ -11,4 +14,7 @@ str = str + "def"
 var sb strings.Builder
 sb.WriteString("abc")
 sb.WriteString("def")
+
+fmt.Printf("str: %s", str)
+fmt.Printf("sb: %s", sb.String())
 }

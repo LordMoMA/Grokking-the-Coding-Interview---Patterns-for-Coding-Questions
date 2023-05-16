@@ -1,21 +1,14 @@
-class Events:
-    def __init__(self, events):
-        self.events = events
+from collections import namedtuple
 
-    def is_empty(self):
-        return not bool(self.events)
+Event = namedtuple('Event', ['title'])
 
-    def list_events_by_range(self, start, end):
-        return self.events[start:end]
+events = [
+    Event('Game of Thrones begins'),
+    Event('Avengers Endgame released'),
+    Event('Python 3.8 released'),
+    Event('COVID-19 declared a pandemic'),
+]
 
-
-events = Events([
-    'Game of Thrones begins',
-    'Avengers Endgame released',
-    'Python 3.8 released',
-    'COVID-19 declared a pandemic',
-])
-
-# 判断是否有内容，打印第二个和第三个对象
-if not events.is_empty():
-    print(events.list_events_by_range(1, 3))
+# Check if there are any events and print the second and third objects
+if events:
+    print(events[1:3])

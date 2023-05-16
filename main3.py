@@ -1,25 +1,14 @@
+def find_potential_customers_v1():
+    """找到去过普吉岛但是没去过新西兰的人
+    """
+    for phuket_record in users_visited_phuket:
+        is_potential = True
+        for nz_record in users_visited_nz:
+            if phuket_record['first_name'] == nz_record['first_name'] and \
+                    phuket_record['last_name'] == nz_record['last_name'] and \
+                    phuket_record['phone_number'] == nz_record['phone_number']:
+                is_potential = False
+                break
 
-class Events:
-    def __init__(self, events):
-        self.events = events
-
-    def __len__(self):
-        """自定义长度，将会被用来做布尔判断"""
-        return len(self.events)
-
-    def __getitem__(self, index):
-        """自定义切片方法"""
-        # 直接将 slice 切片对象透传给 events 处理
-        return self.events[index]
-
-
-events = Events([
-    'computer started',
-    'os launched',
-    'docker started',
-    'os stopped',
-])
-
-# 判断是否有内容，打印第二个和第三个
-if events:
-    print(events[1:3])
+        if is_potential:
+            yield phuket_record

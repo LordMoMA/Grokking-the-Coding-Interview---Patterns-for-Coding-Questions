@@ -1,12 +1,10 @@
-def find_potential_customers_v1():
-    for hk_record in users_visited_hk:
-        is_potential = True
-        for nyc_record in users_visited_nyc:
-            if hk_record['first_name'] == nyc_record['first_name'] and \
-                    hk_record['last_name'] == nyc_record['last_name'] and \
-                    hk_record['phone_number'] == nyc_record['phone_number']:
-                is_potential = False
-                break
+def find_potential_customers_v2():
+    nyc_record_idx = {
+        (rec['first_name'], rec['last_name'], rec['phone_number'])
+        for rec in tourists_visited_nyc
+    }
 
-        if is_potential:
-            yield hk_record
+    for rec in tourists_visited_hk:
+        key = (rec['first_name'], rec['last_name'], rec['phone_number'])
+        if key not in nyc_record_idx:
+            yield rec

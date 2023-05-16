@@ -23,7 +23,7 @@ tourists_visited_hk = [
         "phone_number": "619-555-6543", "date_visited": "2018-09-10"}
 ]
 
-users_visited_nyc = [
+tourists_visited_nyc = [
     {"first_name": "Justin", "last_name": "Malcom",
         "phone_number": "267-282-1964", "date_visited": "2011-03-13"},
     {"first_name": "Albert", "last_name": "Potter",
@@ -64,7 +64,7 @@ class VisitRecord:
         return False
 
     def __repr__(self):
-        return f"VisitRecord(first_name={self.first_name}, last_name={self.last_name}, phone_number={self.phone_number}, date_visited={self.date_visited})"
+        return f"VisitRecord(first_name={self.first_name}, last_name={self.last_name}, phone_number={self.phone_number}, date_visited={self.date_visited})\n"
 
 
 def find_potential_customers_v3():

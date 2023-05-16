@@ -82,8 +82,8 @@ class VisitRecordDC:
 
 
 def find_potential_customers_v4():
-    return set(VisitRecordDC(**r) for r in users_visited_phuket) - \
-        set(VisitRecordDC(**r) for r in users_visited_nz)
+    return set(VisitRecordDC(**r) for r in tourists_visited_hk) - \
+        set(VisitRecordDC(**r) for r in tourists_visited_nyc)
 
 
-print(find_potential_customers_v3())
+print(find_potential_customers_v4())

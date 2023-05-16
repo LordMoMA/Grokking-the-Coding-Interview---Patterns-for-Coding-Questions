@@ -77,7 +77,6 @@ class VisitRecordDC:
     first_name: str
     last_name: str
     phone_number: str
-    # 跳过“访问时间”字段，不作为任何对比条件
     date_visited: str = field(hash=False, compare=False)
 
 

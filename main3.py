@@ -10,10 +10,10 @@ class Events:
 
 
 events = Events([
-    'computer started',
-    'os launched',
-    'docker started',
-    'os stopped',
+    'Game of Thrones begins',
+    'Avengers Endgame released',
+    'Python 3.8 released',
+    'COVID-19 declared a pandemic',
 ])
 
 # 判断是否有内容，打印第二个和第三个对象

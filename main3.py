@@ -3,15 +3,14 @@ class Student:
         self.name = name
         self.age = age
 
-    def get_simple_display(self):
-        return f'{self.name}({self.age})'
+    def __format__(self, format_spec):
+        if format_spec == 'long':
+            return f'{self.name} is {self.age} years old.'
+        elif format_spec == 'simple':
+            return f'{self.name}({self.age})'
+        raise ValueError('invalid format spec')
 
-    def get_long_display(self):
-        return f'{self.name} is {self.age} years old.'
 
-
-piglei = Student('David', '33')
-# OUTPUT: David(33)
-print(piglei.get_simple_display())
-# OUTPUT: piglei is 18 years old.
-print(piglei.get_long_display())
+david = Student('david', '33')
+print('{0:simple}'.format(david))
+print('{0:long}'.format(david))

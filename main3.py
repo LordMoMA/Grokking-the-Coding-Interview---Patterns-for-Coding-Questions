@@ -1,10 +1,17 @@
-def find_potential_customers_v2():
-    nyc_record_idx = {
-        (rec['first_name'], rec['last_name'], rec['phone_number'])
-        for rec in tourists_visited_nyc
-    }
+class Student:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
 
-    for rec in tourists_visited_hk:
-        key = (rec['first_name'], rec['last_name'], rec['phone_number'])
-        if key not in nyc_record_idx:
-            yield rec
+    def get_simple_display(self):
+        return f'{self.name}({self.age})'
+
+    def get_long_display(self):
+        return f'{self.name} is {self.age} years old.'
+
+
+piglei = Student('David', '33')
+# OUTPUT: David(33)
+print(piglei.get_simple_display())
+# OUTPUT: piglei is 18 years old.
+print(piglei.get_long_display())

@@ -28,12 +28,14 @@ class HNTopPostsSpider:
         resp = requests.get(self.ITEMS_URL)
 
         html = etree.HTML(resp.text)
-        items = html.xpath('//table[@class="itemlist"]/tr[@class="athing"]')
+        items = html.xpath(
+            '//table[@class="itemlist"]/tbody/tr[@class="athing"]')
         for item in items[:self.limit]:
-            node_title = item.xpath('./td[@class="title"]/a')[0]
-            node_detail = item.getnext()
+            node_title = item.xpath('.//a[@class="storylink"]')[0]
+            node_detail = item.xpath(
+                'following-sibling::tr[@class="spacer"]')[0]
             points_text = node_detail.xpath('.//span[@class="score"]/text()')
-            comments_text = node_detail.xpath('.//td/a[last()]/text()')[0]
+            comments_text = node_detail.xpath('.//a[last()]/text()')[0]
 
             yield Post(
                 title=node_title.text,

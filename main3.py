@@ -7,13 +7,6 @@ from lxml import etree
 
 
 class Post:
-    """HN(https://news.ycombinator.com/) 上的条目
-
-    :param title: 标题
-    :param link: 链接
-    :param points: 当前得分
-    :param comments_cnt: 评论数
-    """
 
     def __init__(self, title: str, link: str, points: str, comments_cnt: str):
         self.title = title
@@ -23,11 +16,7 @@ class Post:
 
 
 class HNTopPostsSpider:
-    """抓取 HackerNews Top 内容条目
 
-    :param fp: 存储抓取结果的目标文件对象
-    :param limit: 限制条目数，默认为 5
-    """
     ITEMS_URL = 'https://news.ycombinator.com/'
     FILE_TITLE = 'Top news on HN'
 
@@ -36,12 +25,8 @@ class HNTopPostsSpider:
         self.limit = limit
 
     def fetch(self) -> Generator[Post, None, None]:
-        """从 HN 抓取 Top 内容
-        """
         resp = requests.get(self.ITEMS_URL)
 
-        # 使用 XPath 可以方便的从页面解析出你需要的内容，以下均为页面解析代码
-        # 如果你对 xpath 不熟悉，可以忽略这些代码，直接跳到 yield Post() 部分
         html = etree.HTML(resp.text)
         items = html.xpath('//table[@class="itemlist"]/tr[@class="athing"]')
         for item in items[:self.limit]:

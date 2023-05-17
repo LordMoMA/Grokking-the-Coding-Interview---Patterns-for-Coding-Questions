@@ -38,16 +38,15 @@ class HNTopPostsSpider:
             yield Post(
                 title=node_title.text,
                 link=node_title.get('href'),
-                # 条目可能会没有评分
+
                 points=points_text[0].split()[0] if points_text else '0',
                 comments_cnt=comments_text.split()[0]
             )
 
     def write_to_file(self):
-        """以纯文本格式将 Top 内容写入文件
-        """
+
         self.fp.write(f'# {self.FILE_TITLE}\n\n')
-        # enumerate 接收第二个参数，表示从这个数开始计数（默认为 0）
+
         for i, post in enumerate(self.fetch(), 1):
             self.fp.write(f'> TOP {i}: {post.title}\n')
             self.fp.write(f'> 分数：{post.points} 评论数：{post.comments_cnt}\n')

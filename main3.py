@@ -32,7 +32,8 @@ class HNTopPostsSpider:
             '//table/tbody/tr[@class="athing"]')
 
         for item in items[:self.limit]:
-            node_title = item.xpath('./td[@class="titleline"]/a')[0]
+            node_title = item.xpath(
+                './td[@class="title"]/span[@class="titleline"]/a')[0]
             node_detail = item.getnext()
             points_text = node_detail.xpath('.//span[@class="score"]/text()')
             comments_text = node_detail.xpath('.//td/a[last()]/text()')[0]

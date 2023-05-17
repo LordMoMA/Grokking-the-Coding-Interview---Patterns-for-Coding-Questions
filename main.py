@@ -2,8 +2,6 @@ import io
 
 
 class PostsWriter:
-    """负责将帖子列表写入到文件
-    """
 
     def __init__(self, fp: io.TextIOBase, title: str):
         self.fp = fp
@@ -30,3 +28,13 @@ class HNTopPostsSpider:
     def write_to_file(self, fp: io.TextIOBase):
         writer = PostsWriter(fp, title=self.FILE_TITLE)
         writer.write(list(self.fetch()))
+
+
+def main():
+
+    crawler = HNTopPostsSpider(sys.stdout)
+    crawler.write_to_file()
+
+
+if __name__ == '__main__':
+    main()

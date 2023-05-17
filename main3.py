@@ -29,7 +29,7 @@ class HNTopPostsSpider:
 
         html = etree.HTML(resp.text)
         items = html.xpath(
-            '//table[@class="itemlist"]/tbody/tr[@class="athing"]')
+            '//table/tbody/tr[@class="athing"]')
 
         for item in items[:self.limit]:
             node_title = item.xpath('./td[@class="titleline"]/a')[0]

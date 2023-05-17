@@ -20,13 +20,13 @@ class PostsWriter:
 
 
 class HNTopPostsSpider:
+    ITEMS_URL = 'https://news.ycombinator.com/'
     FILE_TITLE = 'Top news on HN'
 
-    def write_to_file(self, fp: io.TextIOBase):
-        """以纯文本格式将 Top 内容写入文件
+    def __init__(self, fp: io.TextIOBase, limit: int = 5):
+        self.fp = fp
+        self.limit = limit
 
-        实例化参数文件对象 fp 被挪到了 write_to_file 方法中
-        """
-        # 将文件写入逻辑托管给 PostsWriter 类处理
+    def write_to_file(self, fp: io.TextIOBase):
         writer = PostsWriter(fp, title=self.FILE_TITLE)
         writer.write(list(self.fetch()))

@@ -1,20 +1,11 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
+import "fmt"
 
 func main(){
-	// This works fine
-str := "abc"
-str = str + "def"
-
-// This is more efficient if you are combining lots of strings
-var sb strings.Builder
-sb.WriteString("abc")
-sb.WriteString("def")
-
-fmt.Printf("str: %s", str)
-fmt.Printf("sb: %s", sb.String())
+	original := "this is a string"
+	var b []byte
+	b = []byte(original) 
+	fmt.Printf("byte: %s",string(b) )
 }
+

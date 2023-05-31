@@ -5,6 +5,8 @@ func main() {
 	// var b []byte
 	// b = []byte(original)
 	// fmt.Printf("byte: %s", string(b))
+
+	setup_test_user()
 }
 
 type user struct {

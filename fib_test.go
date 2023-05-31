@@ -1,6 +1,6 @@
-// package main
+package main
 
-// import "testing"
+import "testing"
 
 // func benchmarkFib(i int, b *testing.B) {
 // 	// run the Fib function b.N times

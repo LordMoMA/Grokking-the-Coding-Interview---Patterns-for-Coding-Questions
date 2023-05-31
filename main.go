@@ -6,7 +6,7 @@ func main() {
 	// b = []byte(original)
 	// fmt.Printf("byte: %s", string(b))
 
-	setup_test_user()
+	setup_test_user(&user{})
 }
 
 type user struct {
@@ -16,9 +16,8 @@ type user struct {
 	email    string
 }
 
-func setup_test_user() *user {
-	sam := user{1001, "sammy", "Sam Winchester", "sam@winchester.org"}
-	return &sam
+func setup_test_user(dst *user) {
+	*dst = user{1001, "sammy", "Sam Winchester", "sam@winchester.org"}
 }
 
 func Fib(n int) int {
